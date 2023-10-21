@@ -1,0 +1,194 @@
+<style>
+    * {
+        background-color: #282323;
+    }
+
+    #con1btns {
+        font-size: 20px;
+        cursor: pointer;
+        margin: 0 10px;
+        height: 120px;
+        width: 120px;
+        background-color: rgb(0, 0, 0);
+        color: white;
+        border: 3px solid rgb(73 69 69);
+        border-radius: 50%;
+    }
+
+    button img {
+        border-radius: 50%;
+        height: 90%;
+        width: 100%;
+    }
+
+    #con1btns:hover {
+        background-color: #e90000;
+    }
+
+    #container1 {
+        margin-top: 10%;
+        display: flex;
+        justify-content: center;
+    }
+    #compMove{
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color:rgb(192, 165, 165);
+        height: 35px;
+        align-items: end;
+        display: flex;
+        justify-content: center;
+    }
+
+    #container2 {
+        margin-top: 2%;
+        display: flex;
+        justify-content: center;
+    }
+
+    #con2btns {
+        cursor: pointer;
+        margin: 0 10px;
+        height: 60px;
+        width: 120px;
+        background-color: black;
+        color: white;
+        border: 3px solid rgb(255, 255, 255);
+        border-radius: 25%;
+    }
+
+    #con2btns:hover {
+        background-color: #212420;
+    }
+    #editable{
+        cursor: default;
+        font-size: 50px;
+        color: white;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        height: 150px;
+        align-items: center;
+        display: flex;
+        justify-content: center
+    }
+    #scoreBoard{
+        height: 100px;
+        align-items: end;
+        word-spacing: 10px;
+        color: blanchedalmond;
+        font-size: 25px;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<div id="container">
+<div id="container1">
+    <button id="con1btns" onclick="playGame('stone')">
+        <img src="src\stone.jpg">
+    </button>
+
+    <button id="con1btns" onclick="playGame('paper')"><img src="src\paper.jpg">
+    </button>
+
+    <button id="con1btns" onclick="playGame('Scissor')"><img src="src\Scissor.jpg">
+    </button>
+</div>
+<script>
+    
+    const score = {
+             won : 0,
+             lost : 0,
+             tie : 0
+        }
+    
+    function playGame(playerMove) {
+        const randomNumber = Math.random();
+        let computerMove = '';
+
+
+        if (randomNumber >= 0 && randomNumber < 1 / 3) {
+            computerMove = 'stone';
+        } else if (randomNumber >= 1 / 3 && randomNumber < 2 / 3) {
+            computerMove = 'paper'
+        } else if (randomNumber >= 2 / 3 && randomNumber < 1) {
+            computerMove = 'Scissor';
+        }
+        console.log('Computer Picked', computerMove);
+        document.getElementById('compMove').innerHTML = `Computer chose : ${computerMove}` ;
+
+
+        if (playerMove  === 'stone'){
+            if (computerMove === 'stone') {
+                result = 'Tie.'
+            } else if (computerMove === 'paper') {
+                result = 'You Lost.'
+            } else if (computerMove === 'Scissor') {
+                result = 'You Won.'
+            }
+        }
+        else if (playerMove === 'paper'){
+            if(computerMove==='stone'){
+            result = 'You Won.'
+            }
+            else if(computerMove==='paper'){
+            result=  'Tie.'
+            }
+            else if(computerMove==='Scissor'){
+            result = 'You Lost.'}
+        }
+        else if(playerMove === 'Scissor'){
+            if(computerMove==='stone'){
+                result = 'You Lost.'
+            }else if(computerMove==='paper'){
+                result = 'You Won.'
+            }else if(computerMove==='Scissor'){
+                result = 'Tie.'}
+            }
+            if(result === 'You Won.'){
+                score.won += 1 ;
+            }
+            if(result === 'You Lost.'){
+                score.lost += 1  ;
+            }
+        if(result === 'Tie.'){
+            score.tie += 1 ;
+        }
+        if(result === 'You Won.'){
+            document.getElementById("editable").innerHTML = "Congratulations , You Won !!";
+            document.getElementById("editable").style.color = "#3ead3e";
+        }
+        else if(result === 'You Lost.'){
+            document.getElementById("editable").innerHTML = "Better Luck Next Time";
+            document.getElementById("editable").style.color = "#b70e0e";
+        }
+        else if(result === 'Tie.'){
+            document.getElementById("editable").innerHTML = "Tie, Try again";
+            document.getElementById("editable").style.color = "#d1d149";
+        }
+        document.getElementById('scoreBoard').innerHTML = `Won: ${score.won} Lost: ${score.lost} Ties: ${score.tie}`;
+        
+    }
+    
+</script>
+<div id="compMove"></div>
+<div id="container2">
+    <button id="con2btns" onclick="
+                score.tie = 0 ,
+                score.lost = 0,
+                score.won = 0
+//             alert(`score has been reseted to
+// Won: ${score.won} Lost: ${score.lost} Ties: ${score.tie}`)
+document.getElementById('editable').innerHTML = 'Score reseted';
+document.getElementById('editable').style.color = 'white'
+document.getElementById('scoreBoard').innerHTML = `Won: ${score.won} Lost: ${score.lost} Ties: ${score.tie}`;
+">
+        Reset Score
+    </button>
+    <br>
+    <br>
+</div>
+<div id="editable">Start game</div>
+<div id="scoreBoard">
+    <script>
+        document.getElementById('scoreBoard').innerHTML = `Won: ${score.won} Lost: ${score.lost} Ties: ${score.tie}`;
+    </script>
+</div>
+</div>
